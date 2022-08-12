@@ -1,0 +1,8 @@
+
+token = 0
+guildID = 980870866638340166
+
+[on_join]
+welcomeChannel = 980870867145871412
+welcomeMessage = "pls welcome {member} to the server!"
+roleOnJoin = 997412646523523102
