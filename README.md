@@ -34,6 +34,24 @@ To start the bot, either double click on main.py or open it with command prompt
 ```bash
 python main.py
 ```
+## Commands
+Since this bot is a WIP, the commands are always changing! This are the current ones
+---
+
+###### Economy Commands
+-bal : Check you account balance
+-work : Work legally and earn money!
+-beg : Hustle on the streets for a lil bit of cash.
+-slut : Solicit people on the streets. High risk, high reward!
+###### Admin Economy Commands
+-eco {action} {account id} {amt} : Remove or add money and remove or add xp
+-createAccountForMembers : Creates an account for any member that doesn't have one.
+###### General admin commands
+-lock {role name - OPTIONAL} : Lock the channel for everyone, or for a specific role
+-unlock {role name - OPTIONAL} : Unlocks the channel for everyone, or for specified role
+-clear {number of messages - OPTIONAL} : Deletes the specified number of messages in a channel. If not specified, deletes 5000.
+###### Other
+-help : Shows the available commands
 
 ---
 
