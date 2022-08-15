@@ -1,8 +1,20 @@
 
 token = 0
-guildID = 980870866638340166
+guildID = 0
+prefix = "!"
 
 [on_join]
-welcomeChannel = 980870867145871412
+enabled = false #enable on join messages
+welcomeChannel = 0
 welcomeMessage = "pls welcome {member} to the server!"
-roleOnJoin = 997412646523523102
+roleOnJoin = 0
+
+
+[economy]
+enabled = true #enable the economy features
+
+[economy.cooldown]
+# in minutes
+workCooldown = 10 
+begCooldown = 5
+slutCooldown = 15
