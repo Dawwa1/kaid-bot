@@ -5,7 +5,6 @@ import nextcord
 from nextcord.ext import commands
 from dotenv import load_dotenv
 from cogs.load_config import openConfig
-from cogs.economy import Economy
 
 config = openConfig()
 guildID = config['guildID']
@@ -92,7 +91,7 @@ async def getRole(id:int):
         
         
         
-
+from cogs.economy import Economy
 
 token = config['token']
 bot.run(token)
