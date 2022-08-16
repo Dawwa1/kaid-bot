@@ -1,11 +1,13 @@
 import math
 import os
 import time
+from typing import Callable
 import nextcord
 from nextcord import Interaction, SlashOption
 from nextcord.ext import commands, application_checks
 from dotenv import load_dotenv
 from load_config import openConfig
+from cooldowns import CallableOnCooldown
 
 config = openConfig()
 guildID = config['guildID']
@@ -38,25 +40,20 @@ async def on_ready():
         print("\nWelcome functions disabled!")
 
 @bot.event
-async def on_command_error(ctx:commands.Context, error):
-    if isinstance(error, commands.CommandOnCooldown):
-        ping = await ctx.send(ctx.author.mention)
-        embed = nextcord.Embed(title="Cooldown!", description=f"Command on cooldown. Try again in {math.trunc((error.retry_after / 60) + 1)} minutes" , color=0xff0000)
-        em = await ctx.send(embed=embed)
-        await em.delete(delay=10)
-        await ping.delete(delay=10)
-    if isinstance(error, commands.MissingPermissions):
-        ping = await ctx.send(ctx.author.mention)
+async def on_application_command_error(interaction:nextcord.Interaction, error):
+    if isinstance(error, nextcord.ApplicationInvokeError):
+        error = error.original
+    if isinstance(error, application_checks.ApplicationMissingPermissions):
         embed = nextcord.Embed(title="Permission Error", description=f"You do not have the required permissions to execute this command!" , color=0xff0000)
-        em = await ctx.send(embed=embed)
-        await ctx.message.delete()
+        await interaction.send(embed=embed, delete_after=5)
+    if isinstance(error, CallableOnCooldown):
+        ping = interaction.user.mention
+        embed = nextcord.Embed(title="Cooldown!", description=f"{ping} Command on cooldown. Try again in {math.trunc((error.retry_after / 60) + 1)} minutes" , color=0xff0000)
+        em = await interaction.response.send_message(embed=embed, ephemeral=True)
         await em.delete(delay=10)
-        await ping.delete(delay=10)
-
-#@bot.event
-#async def on_application_command_error(error, interaction:nextcord.Interaction):
-#    if isinstance(error, application_checks.ApplicationMissingPermissions):
-#        await interaction.send("test")
+        await em.delete(delay=10)
+    else:
+        raise error
 
 @bot.event
 async def on_member_join(member:nextcord.Member):

@@ -1,6 +1,6 @@
 import nextcord
 from nextcord.ext import commands
-from cogs.load_config import openConfig
+from load_config import openConfig
 
 
 class HelpCom(commands.Cog):
