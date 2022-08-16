@@ -43,6 +43,7 @@ Since this bot is a WIP, the commands are always changing! This are the current 
 -work : Work legally and earn money!
 -beg : Hustle on the streets for a lil bit of cash.
 -slut : Solicit people on the streets. High risk, high reward!
+-guess {choice} {amt} - If you choose the same number as the bot, you win money!
 ###### Admin Economy Commands
 -eco {action} {account id} {amt} : Remove or add money and remove or add xp
 -createAccountForMembers : Creates an account for any member that doesn't have one.
