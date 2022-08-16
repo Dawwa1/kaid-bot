@@ -2,7 +2,7 @@ from imp import reload
 from operator import mod
 import os
 import nextcord
-from cogs.load_config import openConfig
+from load_config import openConfig
 from nextcord.ext import commands
 import asyncio
 

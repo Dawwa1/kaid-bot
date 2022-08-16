@@ -4,19 +4,19 @@ import nextcord
 import random
 import math
 from nextcord.ext import commands
-from main import guildID
-import main
+from load_config import openConfig
 
 
 class Economy(commands.Cog):
     
+    config = openConfig()
+    
     def __init__(self, bot):
         self.bot = bot
-        self.guild = guildID
+        self.guild = self.config['guildID']
         with open(r'cogs\\bank.json',"r") as i:
             data = json.load(i)
             self.bank = data
-        self.config = main.config
         
     def createAccount(self, member: nextcord.Member):
         if not str(member.id) in self.bank:
@@ -56,7 +56,7 @@ class Economy(commands.Cog):
             return ctx.send("You do not have an account! Please rejoin to create one.")
         
     @commands.command()
-    @commands.cooldown(1, main.config["economy"]['cooldown']['workCooldown']*60, commands.BucketType.user)
+    @commands.cooldown(1, config["economy"]['cooldown']['workCooldown']*60, commands.BucketType.user)
     async def work(self, ctx:commands.Context):
         userid = str(ctx.message.author.id)
         if random.randint(0, 100) <= 5:
@@ -74,7 +74,7 @@ class Economy(commands.Cog):
             await ctx.send(embed=embed)
         
     @commands.command()
-    @commands.cooldown(1, main.config['economy']['cooldown']['begCooldown']*60, commands.BucketType.user)
+    @commands.cooldown(1, config['economy']['cooldown']['begCooldown']*60, commands.BucketType.user)
     async def beg(self, ctx:commands.Context):
         userid = str(ctx.message.author.id)
         if random.randint(0, 100) <= 25:
@@ -91,7 +91,7 @@ class Economy(commands.Cog):
             await ctx.send(embed=embed)
         
     @commands.command()
-    @commands.cooldown(1, main.config['economy']['cooldown']['slutCooldown']*60, commands.BucketType.user)
+    @commands.cooldown(1, config['economy']['cooldown']['slutCooldown']*60, commands.BucketType.user)
     async def slut(self, ctx:commands.Context):
         userid = str(ctx.message.author.id)
         if random.randint(0, 100) <= 30:
@@ -136,6 +136,11 @@ class Economy(commands.Cog):
     @commands.command(aliases=['gamble'])
     async def guess(self, ctx:commands.Context, choice:str, amt):
         userid = str(ctx.message.author.id)
+        if int(amt) > self.bank[userid]['cash']:
+            await ctx.send("haha to broke for dat kekw")
+            return
+        else: pass
+        
         txt = ""
         choices = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
         aichoice = random.choice(choices) 
@@ -150,15 +155,11 @@ class Economy(commands.Cog):
             txt = f"```You lost {prize}$ :(```"
             self.bank[userid]['cash'] -= prize
         self.saveAccount(data=self.bank)
-        if int(amt) > self.bank[userid]['cash']:
-            await ctx.send("haha to broke for dat kekw")
-            return
-        elif int(amt) < self.bank[userid]['cash']:
-            embed = nextcord.Embed(title="Guessing Game", description="", color=0x0aec84)
-            embed.add_field(name="AI Choice", value=f"`{aichoice}`", inline=False)
-            embed.add_field(name="Your Choice", value=f"`{choice}`", inline=True)
-            embed.add_field(name=name, value=txt, inline=False)
-            await ctx.send(embed=embed)
+        embed = nextcord.Embed(title="Guessing Game", description="", color=0x0aec84)
+        embed.add_field(name="AI Choice", value=f"`{aichoice}`", inline=False)
+        embed.add_field(name="Your Choice", value=f"`{choice}`", inline=True)
+        embed.add_field(name=name, value=txt, inline=False)
+        await ctx.send(embed=embed)
         
             
     #Admin commands below
