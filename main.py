@@ -17,7 +17,7 @@ bot = commands.Bot(command_prefix=prefix,help_command=None, intents=intents)
 economyStatus = config['economy']['enabled']
 welcomeStatus = config['on_join']['enabled']
 
-for filename in os.listdir('./cogs'):
+for filename in os.listdir('./cogs'): # If your gonna host it on a linux server remove the ./ bc it will not work
     if filename.endswith('.py'):
         bot.load_extension(f'cogs.{filename[:-3]}')
         print(f"Loaded {filename[:-3]}")
