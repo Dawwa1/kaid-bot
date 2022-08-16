@@ -1,6 +1,6 @@
-## Kaid Bot Slash Commands Version
+## Kaid Bot
 
-Kaid is a multipurpose bot, designed to be easy to use and easy to understand! This is the experimental slash commands version. All commands have been tested, but some might not work as intended.
+Kaid is a multipurpose bot, designed to be easy to use and easy to understand!
 
 ## Installation
 
