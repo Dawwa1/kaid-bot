@@ -1,13 +1,13 @@
 
-token = 0
-guildID = 0
+token = "0"
+guildID = 980870866638340166
 prefix = "!"
 
 [on_join]
 enabled = false #enable on join messages
-welcomeChannel = 0
+welcomeChannel = 980870867145871412
 welcomeMessage = "pls welcome {member} to the server!"
-roleOnJoin = 0
+roleOnJoin = 997412646523523102
 
 
 [economy]

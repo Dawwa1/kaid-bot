@@ -1,9 +1,10 @@
+import math
 import os
 import time
 import nextcord
 from nextcord.ext import commands
 from dotenv import load_dotenv
-from load_config import openConfig
+from cogs.load_config import openConfig
 
 config = openConfig()
 guildID = config['guildID']
@@ -17,14 +18,11 @@ economyStatus = config['economy']['enabled']
 welcomeStatus = config['on_join']['enabled']
 
 for filename in os.listdir('./cogs'):
-    try:
-        if filename.endswith('.py'):
-            bot.load_extension(f'cogs.{filename[:-3]}')
-            print(f"Loaded {filename[:-3]}")
-        else:
-            pass
-    except Exception as e:
-        print(e)
+    if filename.endswith('.py'):
+        bot.load_extension(f'cogs.{filename[:-3]}')
+        print(f"Loaded {filename[:-3]}")
+    else:
+        pass
 
 load_dotenv()
 
@@ -38,13 +36,27 @@ async def on_ready():
     if not welcomeStatus:
         print("\nWelcome functions disabled!")
     
-    
-    
 @bot.event
-async def on_member_join(member):
+async def on_command_error(ctx:commands.Context, error):
+    if isinstance(error, commands.CommandOnCooldown):
+        ping = await ctx.send(ctx.author.mention)
+        embed = nextcord.Embed(title="Cooldown!", description=f"Command on cooldown. Try again in {math.trunc((error.retry_after / 60) + 1)} minutes" , color=0xff0000)
+        em = await ctx.send(embed=embed)
+        await em.delete(delay=10)
+        await ping.delete(delay=10)
+    if isinstance(error, commands.MissingPermissions):
+        ping = await ctx.send(ctx.author.mention)
+        embed = nextcord.Embed(title="Permission Error", description=f"You do not have the required permissions to execute this command!" , color=0xff0000)
+        em = await ctx.send(embed=embed)
+        await ctx.message.delete()
+        await em.delete(delay=10)
+        await ping.delete(delay=10)
+
+@bot.event
+async def on_member_join(member:nextcord.Member):
     if welcomeStatus:
         channel = bot.get_channel(config['on_join']['welcomeChannel'])
-        welcomeMessage = config['on_join']['welcomeMessage'].replace("{member}", str(member))
+        welcomeMessage = config['on_join']['welcomeMessage'].replace("{member}", "{guild}", str(member), str(member.guild))
         role = await getRole(id=int(config['on_join']['roleOnJoin']))
         if not role:
             return
@@ -82,4 +94,4 @@ async def getRole(id:int):
 from cogs.economy import Economy
 
 token = config['token']
-bot.run(os.getenv('TOKEN'))
+bot.run(token)
