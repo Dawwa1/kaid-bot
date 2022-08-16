@@ -24,6 +24,7 @@ class HelpCom(commands.Cog):
             embed.add_field(name="General Admin", value="General admin commands", inline=False)
             embed.add_field(name="lock {role name = OPTIONAL}", value="Lock a channel for everyone, or a specific role", inline=True)
             embed.add_field(name="clear {# of messages = OPTIONAL}", value="Deletes the specifed # of messages. If not specifed, deletes all", inline=True)
+            embed.add_field(name="GetId {member}", value="Gets the id of the specified member", inline=True)
             await ctx.send(embed=embed)
         except Exception as e:
             print(e)
