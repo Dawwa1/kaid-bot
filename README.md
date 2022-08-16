@@ -23,7 +23,7 @@ token = 0 #Your discord token
 guildID = 0 #The id of your guild
 
 [on_join]
-welcomeChannel = 0 #The channel that the bot will send welcome messages to
+welcomeChannel = 0 #The channel id that the bot will send welcome messages to
 welcomeMessage = "pls welcome {member} to the server!" #The welcome message
 roleOnJoin = 0 #The role that the bot will give members on join
 ```
