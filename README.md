@@ -19,13 +19,25 @@ https://trello.com/b/2K0Z4Jul/kaid-bot
 Configuring the bot is pretty self explanatory
 
 ```toml
-token = 0 #Your discord token
-guildID = 0 #The id of your guild
+token = "" #Put your discord bot token here
+guildID = 980870866638340166 #The id of your guild
+prefix = "!" #The prefix for your bot
 
 [on_join]
-welcomeChannel = 0 #The channel id that the bot will send welcome messages to
-welcomeMessage = "pls welcome {member} to the server!" #The welcome message
-roleOnJoin = 0 #The role that the bot will give members on join
+enabled = false #enable on join messages
+welcomeChannel = 980870867145871412 # if enabled, will send welcome messages to this channel
+welcomeMessage = "pls welcome {member} to the server!" #Welcome message. Placeholders are {member} and {guild}
+roleOnJoin = 997412646523523102 #The role that it will give on join
+
+
+[economy]
+enabled = true #enable the economy features
+
+[economy.cooldown]
+# in minutes
+workCooldown = 10 
+begCooldown = 5
+slutCooldown = 15
 ```
 ---
 
