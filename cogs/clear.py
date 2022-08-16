@@ -10,8 +10,7 @@ class Clear(commands.Cog):
     @commands.command(aliases=['cl'])
     async def clear(self, ctx, numOfMsgs:int = None):
         if not numOfMsgs: numOfMsgs = 5000
-        msg = await ctx.channel.purge(limit=numOfMsgs, bulk=True)
-        await msg.delete(delay=1)
+        await ctx.channel.purge(limit=numOfMsgs+1, bulk=True)
     
 
 def setup(bot):
