@@ -2,9 +2,10 @@ import math
 import os
 import time
 import nextcord
-from nextcord.ext import commands
+from nextcord import Interaction, SlashOption
+from nextcord.ext import commands, application_checks
 from dotenv import load_dotenv
-from cogs.load_config import openConfig
+from load_config import openConfig
 
 config = openConfig()
 guildID = config['guildID']
@@ -17,7 +18,7 @@ bot = commands.Bot(command_prefix=prefix,help_command=None, intents=intents)
 economyStatus = config['economy']['enabled']
 welcomeStatus = config['on_join']['enabled']
 
-for filename in os.listdir('./cogs'): # If your gonna host it on a linux server remove the ./ bc it will not work
+for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
         bot.load_extension(f'cogs.{filename[:-3]}')
         print(f"Loaded {filename[:-3]}")
@@ -35,7 +36,7 @@ async def on_ready():
         bot.unload_extension('cogs.economy')
     if not welcomeStatus:
         print("\nWelcome functions disabled!")
-    
+
 @bot.event
 async def on_command_error(ctx:commands.Context, error):
     if isinstance(error, commands.CommandOnCooldown):
@@ -51,6 +52,11 @@ async def on_command_error(ctx:commands.Context, error):
         await ctx.message.delete()
         await em.delete(delay=10)
         await ping.delete(delay=10)
+
+#@bot.event
+#async def on_application_command_error(error, interaction:nextcord.Interaction):
+#    if isinstance(error, application_checks.ApplicationMissingPermissions):
+#        await interaction.send("test")
 
 @bot.event
 async def on_member_join(member:nextcord.Member):
