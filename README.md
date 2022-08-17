@@ -63,7 +63,9 @@ Since this bot is a WIP, the commands are always changing! This are the current 
 
 -slut : Solicit people on the streets. High risk, high reward!
 
--guess {choice} {amt} - If you choose the same number as the bot, you win money!
+-guess {choice} {amt} : If you choose the same number as the bot, you win money!
+
+-cat : Gives you a random picture of a cat!
 
 ###### Admin Economy Commands
 -eco {action} {account id} {amt} : Remove or add money and remove or add xp
