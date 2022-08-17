@@ -1,13 +1,13 @@
 
-token = "MTAwNTM1MDk4NjA1Njk5NDg1Nw.GeIpKD.iKusGOPf2gMjiFo62_VeMOv1DoMJ5zfnYZyYy4"
-guildID = 980870866638340166
+token = "0"
+guildID = 0
 prefix = "!"
 
 [on_join]
 enabled = false #enable on join messages
-welcomeChannel = 980870867145871412
+welcomeChannel = 0
 welcomeMessage = "pls welcome {member} to the server!"
-roleOnJoin = 997412646523523102
+roleOnJoin = 0
 
 
 [economy]
@@ -21,4 +21,4 @@ slutCooldown = 15
 
 [logging] #event logging such as message delete, message edit, etc
 enabled = true #default: true
-logging_channel = 997314079582588928
+logging_channel = 0
