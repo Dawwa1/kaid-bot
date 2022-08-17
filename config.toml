@@ -1,5 +1,5 @@
 
-token = "0"
+token = "MTAwNTM1MDk4NjA1Njk5NDg1Nw.GeIpKD.iKusGOPf2gMjiFo62_VeMOv1DoMJ5zfnYZyYy4"
 guildID = 980870866638340166
 prefix = "!"
 
@@ -18,3 +18,7 @@ enabled = true #enable the economy features
 workCooldown = 10 
 begCooldown = 5
 slutCooldown = 15
+
+[logging] #event logging such as message delete, message edit, etc
+enabled = true #default: true
+logging_channel = 997314079582588928
