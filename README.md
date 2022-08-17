@@ -38,6 +38,10 @@ enabled = true #enable the economy features
 workCooldown = 10 
 begCooldown = 5
 slutCooldown = 15
+
+[logging] #event logging such as message delete, message edit, etc
+enabled = true #default: true
+logging_channel = 0
 ```
 ---
 
