@@ -1,24 +1,61 @@
 
-token = "0"
+token = ""
 guildID = 0
 prefix = "!"
 
+trialModRoles = []
+modRoles = ["Community Manager", "Trial Moderator", "Moderator", "Senior Moderator"] #role names | CASE SENSATIVE!
+adminRoles = []
+
+
+
+[moderation]
+muteRole = 0
+
+modLogsChannel = 0
+
+
+
 [on_join]
 enabled = false #enable on join messages
-welcomeChannel = 0
-welcomeMessage = "pls welcome {member} to the server!"
-roleOnJoin = 0
+
+    welcomeChannel = 0
+    welcomeMessage = "pls welcome {member} to the server!"
+    roleOnJoin = 0
+
+
 
 
 [economy]
 enabled = true #enable the economy features
 
-[economy.cooldown]
-# in minutes
-workCooldown = 10 
-begCooldown = 5
-slutCooldown = 15
+    [economy.cooldown]
+    # in minutes
+    workCooldown = 10 
+    begCooldown = 5
+    showoffCooldown = 15
 
-[logging] #event logging such as message delete, message edit, etc
+
+
+
+[logging] #event logging such as message delete, message edit, ban, etc
 enabled = true #default: true
 logging_channel = 0
+
+
+
+
+
+[automod]
+#valid punishments
+#timeout, message delete, kick, ban
+enabled=true
+
+    [automod.filter]
+    blacklisted_words = ["nigga", "niggar", "faggot"] #no no words
+    allowableMentions = 1 #How many mentions can 1 message have
+
+
+[other]
+suggestChannel = 0
+reportChannel = 0

@@ -1,7 +1,6 @@
 import asyncpraw
 import nextcord
-from nextcord.ext import commands, application_checks
-from nextcord import SlashOption
+from nextcord.ext import commands
 from load_config import openConfig
 
 

@@ -1,11 +1,9 @@
+import fnmatch
 import math
 import os
 import time
-from typing import Callable
 import nextcord
-from nextcord import Interaction, SlashOption
 from nextcord.ext import commands, application_checks
-from dotenv import load_dotenv
 from load_config import openConfig
 from cooldowns import CallableOnCooldown
 
@@ -20,14 +18,19 @@ bot = commands.Bot(command_prefix=prefix,help_command=None, intents=intents)
 economyStatus = config['economy']['enabled']
 welcomeStatus = config['on_join']['enabled']
 
-for filename in os.listdir('./cogs'):
-    if filename.endswith('.py'):
-        bot.load_extension(f'cogs.{filename[:-3]}')
-        print(f"Loaded {filename[:-3]}")
-    else:
-        pass
+root = './cogs'
+pattern = "*.py"
 
-load_dotenv()
+for path, subdirs, files in os.walk(root):
+    for name in files:
+        if fnmatch.fnmatch(name, pattern):
+            paths = os.path.join(path, name)[2:][:-3]
+            pathsFormatted = paths.replace("\\", ".")
+            try:
+                bot.load_extension(pathsFormatted)
+                print(f"Loaded {pathsFormatted}")
+            except Exception as e:
+                print(e)
 
 @bot.event
 async def on_ready():
@@ -45,13 +48,14 @@ async def on_application_command_error(interaction:nextcord.Interaction, error):
         error = error.original
     if isinstance(error, application_checks.ApplicationMissingPermissions):
         embed = nextcord.Embed(title="Permission Error", description=f"You do not have the required permissions to execute this command!" , color=0xff0000)
-        await interaction.send(embed=embed, delete_after=5)
+        await interaction.response.send_message(embed=embed, ephemeral=True, delete_after=10)
+    if isinstance(error, application_checks.ApplicationMissingAnyRole):
+        embed = nextcord.Embed(title="Permission Error", description=f"You do not have the required permissions to execute this command!" , color=0xff0000)
+        await interaction.response.send_message(embed=embed, ephemeral=True, delete_after=10)
     if isinstance(error, CallableOnCooldown):
         ping = interaction.user.mention
         embed = nextcord.Embed(title="Cooldown!", description=f"{ping} Command on cooldown. Try again in {math.trunc((error.retry_after / 60) + 1)} minutes" , color=0xff0000)
-        em = await interaction.response.send_message(embed=embed, ephemeral=True)
-        await em.delete(delay=10)
-        await em.delete(delay=10)
+        await interaction.response.send_message(embed=embed, ephemeral=True, delete_after=10)
     else:
         raise error
 
@@ -68,7 +72,7 @@ async def on_member_join(member:nextcord.Member):
         await msg.add_reaction("🥳")
     if economyStatus:
         eco = Economy(bot=bot)
-        eco.createAccount(member=member)
+        eco.createAccount(member=str(member.id))
     else:
         return
 
@@ -94,7 +98,7 @@ async def getRole(id:int):
         
         
         
-from cogs.economy import Economy
+from cogs.economy.economy import Economy
 
 token = config['token']
 bot.run(token)
