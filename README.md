@@ -1,14 +1,15 @@
-## Kaid Bot
+# Kaid Bot
 
-A multipurpose, all-in-one bot.
+A multipurpose, all-in-one bot that is currently undergoing a major overhaul. The update (1.0) will include the following changes:
 
-this bot is very outdated at the moment. very big update (1.0) is coming soon, overhaling the entire bot. below are just **SOME** of the things that are going to be changed
+- made all commands slash commands
+- Database will be migrated to MongoDB
+- All commands will be modified, with most being completely rewritten
+- Over 30 new commands will be added
+- Command-based config editing will be introduced
 
-- Database ported to MongoDB
-- All commands modified, most commands completely rewritten
-- A bunch more commands (30+ commands)
-- Command-based config editing
+The release date is set for December 23rd or earlier. After that, I will be releasing monthly updates to keep the bot up-to-date, fix bugs, and add new features.
 
-release data is set for Dec. 23rd or earlier. after that I will be doing monthly updates to keep the bot up-to-date, fixing bugs, and adding new features.
+**Important:** I recommend not opening or forking this repository until the update is released, as every aspect of the bot will be modified. Any issues will be ignored until after the release.
 
-i recommend not opening or forking this repo until the big update, as every aspect of the bot will be modified. any issues will be ignored until after the release.
+Thank you for your patience and understanding.
